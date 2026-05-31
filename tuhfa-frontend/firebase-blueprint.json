@@ -1,0 +1,147 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Registered customer or administrator profile containing system permissions",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The Firestore Document ID, which corresponds to the Firebase Auth UID"
+        },
+        "username": {
+          "type": "string",
+          "description": "Unique username used for login"
+        },
+        "name": {
+          "type": "string",
+          "description": "The display name of the customer"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Customer contact mobile phone number"
+        },
+        "isAdmin": {
+          "type": "boolean",
+          "description": "Flag indicating if the user is a boutique owner/administrator"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Format date-time of account registration"
+        }
+      },
+      "required": ["id", "username", "name", "phone", "isAdmin"]
+    },
+    "CustomOrder": {
+      "title": "CustomOrder",
+      "description": "A customized product design and delivery request placed by a customer",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique order identifier"
+        },
+        "userId": {
+          "type": "string",
+          "description": "The UID of the user who submitted this order"
+        },
+        "customerName": {
+          "type": "string",
+          "description": "Full name of the customer"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Contact number for delivery communication"
+        },
+        "occasionType": {
+          "type": "string",
+          "description": "Event category like marriage, engagement, graduation, newborn"
+        },
+        "mainColor": {
+          "type": "string",
+          "description": "Dominant color theme"
+        },
+        "customText": {
+          "type": "string",
+          "description": "Specific texts or names to be engraved/crafted"
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional user personalization notes and preferences"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "confirmed", "preparing", "delivered", "canceled"],
+          "description": "Real-time state tracking of order completion"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Human-readable local creation date"
+        },
+        "metroStation": {
+          "type": "string",
+          "description": "Metro station name selected for Giza/Cairo delivery"
+        },
+        "createdAtRaw": {
+          "type": "string",
+          "description": "ISO format timestamp of order click"
+        },
+        "priceEGP": {
+          "type": "number",
+          "description": "Final EGP price set by Nona (Admin) manually"
+        }
+      },
+      "required": ["id", "userId", "customerName", "phone", "occasionType", "mainColor", "customText", "status", "createdAt"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "Real-time state change or administrative notification for the client",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique notification ID"
+        },
+        "userId": {
+          "type": "string",
+          "description": "Recipient customer UID"
+        },
+        "title": {
+          "type": "string",
+          "description": "Enriched title of notification in Arabic"
+        },
+        "message": {
+          "type": "string",
+          "description": "Detailed update notice description"
+        },
+        "orderId": {
+          "type": "string",
+          "description": "Reference ID for the customized design order"
+        },
+        "isRead": {
+          "type": "boolean",
+          "description": "Visual read tracker"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp of state change"
+        }
+      },
+      "required": ["id", "userId", "title", "message", "isRead", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "User" },
+      "description": "User profiles stored securely with document path matching their auth UID"
+    },
+    "/orders/{orderId}": {
+      "schema": { "$ref": "CustomOrder" },
+      "description": "Direct custom design orders with real-time sync capabilities"
+    },
+    "/notifications/{notificationId}": {
+      "schema": { "$ref": "Notification" },
+      "description": "Customer specific change of status push alerts list"
+    }
+  }
+}

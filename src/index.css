@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=Cairo:wght@300;400;500;600;700;800;900&family=Marhey:wght@300..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #FAF0E8;
+  --color-dark-brown: #7B3B2A;
+  --color-dusty-pink: #E8A0A0;
+  --color-soft-pink: #F2C4C4;
+  --color-medium-brown: #A05030;
+  --color-warm-beige: #F0D8C8;
+
+  --font-sans: "Alexandria", "Cairo", system-ui, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-marhey: "Marhey", "Cairo", sans-serif;
+}
+
+@layer utilities {
+  .glow-hover {
+    box-shadow: 0 0 15px rgba(242, 196, 196, 0.4);
+  }
+}
+
+/* Base luxury theme overrides */
+body {
+  background-color: #FAF0E8;
+  color: #7B3B2A;
+  direction: rtl;
+  font-family: "Alexandria", "Cairo", sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar for boutique luxury look */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF0E8;
+}
+::-webkit-scrollbar-thumb {
+  background: #E8A0A0;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #7B3B2A;
+}
+
+/* Soft shimmer animation */
+@keyframes shimmer {
+  0% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+  100% { opacity: 0.3; }
+}
+
+.shimmer-bg {
+  animation: shimmer 4s infinite ease-in-out;
+}

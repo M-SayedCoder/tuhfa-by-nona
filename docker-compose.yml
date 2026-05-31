@@ -1,0 +1,63 @@
+version: "3.9"
+
+services:
+  # ─── MongoDB ───────────────────────────────────────────────────────────────
+  mongo:
+    image: mongo:7.0
+    container_name: tuhfa-mongo
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_DATABASE: tuhfa
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─── NestJS Backend ────────────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./tuhfa-backend
+      dockerfile: Dockerfile
+    container_name: tuhfa-backend
+    restart: unless-stopped
+    depends_on:
+      mongo:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      MONGODB_URI: mongodb://mongo:27017/tuhfa
+      JWT_SECRET: ${JWT_SECRET:-change-this-in-production}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
+      ADMIN_SECRET_CODE: ${ADMIN_SECRET_CODE:-}
+      SMTP_HOST: ${SMTP_HOST:-smtp.gmail.com}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      SMTP_FROM: ${SMTP_FROM:-}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:5173}
+    ports:
+      - "3001:3001"
+
+  # ─── React Frontend ────────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./tuhfa-frontend
+      dockerfile: Dockerfile
+    container_name: tuhfa-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      VITE_API_URL: http://localhost:3001/api
+    ports:
+      - "5173:80"
+
+volumes:
+  mongo_data:
+    driver: local

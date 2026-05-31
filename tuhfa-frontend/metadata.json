@@ -1,0 +1,6 @@
+{
+  "name": "TUHFA by Nona",
+  "description": "منصة تحفة للمشغولات اليدوية ومستلزمات العرائس الراقية، صواني الشبكة ومرايا كتب الكتاب المميزة بروح فنية دافئة",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
