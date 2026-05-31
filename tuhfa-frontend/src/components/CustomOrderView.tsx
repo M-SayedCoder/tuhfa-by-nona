@@ -723,7 +723,13 @@ export default function CustomOrderView() {
           <Sparkles className="w-3.5 h-3.5 text-[#E8A0A0]" />
           <span>استوديو نونا لتفصيل الأفكار اليدوية الحية | COUTURE DESIGN STUDIO</span>
         </motion.div>
-        <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#7B3B2A] mt-2">اصنـعي تُحفتـكِ الخــاصّة</h1>
+        <h1 
+          onClick={handleSecretClick}
+          className="font-serif text-3xl sm:text-4xl font-bold text-[#7B3B2A] mt-2 cursor-pointer select-none active:opacity-80 transition-opacity"
+          title="اضغط 5 مرات لفتح الإدارة"
+        >
+          اصنـعي تُحفتـكِ الخــاصّة
+        </h1>
         <p className="text-sm text-[#A05030]/80 font-sans mt-2">
           عيشي تجربة المصممة؛ اختاري ألوانك، الأسماء، التواريخ، والمناسبة وشاهدي المحاكاة البصرية مباشرة في الاستوديو التفاعلي ثم أرسليها لنونا للحياكة والتفصيل الفوري.
         </p>
@@ -1190,9 +1196,9 @@ export default function CustomOrderView() {
           )}
 
           <h3 
-            onClick={() => setSecretClickCount(prev => prev + 1)}
+            onClick={handleSecretClick}
             className="font-serif font-bold text-[#7B3B2A] text-xl sm:text-2xl flex items-center gap-2 order-1 md:order-2 cursor-pointer select-none active:opacity-85 active:scale-95 transition-all"
-            title="سجل لوحاتي ومقتنياتي"
+            title="اضغط 5 مرات لفتح الإدارة"
           >
             {viewMode === "customer" ? (
               <>
