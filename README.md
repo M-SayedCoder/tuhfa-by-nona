@@ -92,5 +92,5 @@ The system includes:
 
 ## 👨‍💻 Author
 
-Mohamed Sayed
-Full Stack Developer
+* Mohamed Sayed
+* Full Stack Developer
