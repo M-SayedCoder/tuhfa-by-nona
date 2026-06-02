@@ -11,7 +11,7 @@ async function bootstrap() {
   origin: [
     process.env.FRONTEND_URL || '',
     'http://localhost:5173',
-    'https://tuhfa-by-nona.vercel.app/',
+    'https://tuhfa-by-nona.vercel.app',
   ].filter(Boolean),
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   credentials: true,
