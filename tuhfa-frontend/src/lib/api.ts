@@ -7,11 +7,13 @@
  * 3. apiFetch يرجع data.data أو data مباشرة (backward-compatible)
  */
 
-// ✅ FIX 1: relative URL — يعمل مع Vite proxy في dev وsame-origin في production
-// Ensure TypeScript knows about import.meta.env in this file (Vite exposes VITE_* vars)
+// ✅ FIX 1: Dynamic API URL configuration
+// - Development: /api (proxied via Vite to http://localhost:3001/api)
+// - Production: Full Railway URL from env
 declare global {
   interface ImportMetaEnv {
     readonly VITE_API_URL?: string;
+    readonly MODE: string;
   }
 
   interface ImportMeta {
@@ -19,7 +21,12 @@ declare global {
   }
 }
 
-const API_BASE = import.meta.env.VITE_API_URL ?? '/api';
+const API_BASE = import.meta.env.VITE_API_URL || '/api';
+
+// Debug logging in development
+if (import.meta.env.MODE === 'development') {
+  console.log('🔌 API_BASE:', API_BASE);
+}
 
 // ── Custom error class يحمل status ─────────────────────────────────────────
 
