@@ -269,6 +269,7 @@ export default function AuthView({ setTab }: AuthViewProps) {
     // Send OTP via backend — the code is NEVER exposed to the client
     setLoading(true);
     try {
+      console.log("EMAIL OTP WILL BE SENT TO:", signupUser);
       const { otpApi } = await import("../lib/api");
       const data = await otpApi.send(signupUser);
       if (!data.success) {

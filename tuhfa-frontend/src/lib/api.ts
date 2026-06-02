@@ -8,8 +8,18 @@
  */
 
 // ✅ FIX 1: relative URL — يعمل مع Vite proxy في dev وsame-origin في production
-const API_BASE =
-  import.meta.env.VITE_API_URL || 'https://tuhfa-by-nona-production.up.railway.app';
+// Ensure TypeScript knows about import.meta.env in this file (Vite exposes VITE_* vars)
+declare global {
+  interface ImportMetaEnv {
+    readonly VITE_API_URL?: string;
+  }
+
+  interface ImportMeta {
+    readonly env: ImportMetaEnv;
+  }
+}
+
+const API_BASE = import.meta.env.VITE_API_URL ?? '/api';
 
 // ── Custom error class يحمل status ─────────────────────────────────────────
 
