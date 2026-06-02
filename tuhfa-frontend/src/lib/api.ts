@@ -8,7 +8,8 @@
  */
 
 // ✅ FIX 1: relative URL — يعمل مع Vite proxy في dev وsame-origin في production
-const API_BASE = import.meta.env.VITE_API_URL;
+const API_BASE =
+  import.meta.env.VITE_API_URL || 'https://tuhfa-by-nona-production.up.railway.app';
 
 // ── Custom error class يحمل status ─────────────────────────────────────────
 
