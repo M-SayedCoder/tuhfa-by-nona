@@ -7,15 +7,18 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // Enable CORS for frontend
+  const frontendUrl = process.env.FRONTEND_URL?.replace(/\/$/, '') || 'http://localhost:5173';
+  
   app.enableCors({
-  origin: [
-    process.env.FRONTEND_URL || '',
-    'http://localhost:5173',
-    'https://tuhfa-by-nona.vercel.app/',
-  ].filter(Boolean),
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  credentials: true,
-});
+    origin: [
+      frontendUrl,
+      'http://localhost:5173',
+      'https://tuhfa-by-nona.vercel.app',
+    ],
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  });
 
   // Global validation pipe
   app.useGlobalPipes(
